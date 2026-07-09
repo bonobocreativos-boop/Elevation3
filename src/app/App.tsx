@@ -18,6 +18,23 @@ const IMGS = {
 const ff = { outfit: { fontFamily: "'Outfit', sans-serif" } as React.CSSProperties };
 const fi = { fontFamily: "'Inter', sans-serif" } as React.CSSProperties;
 
+// ─── Typewriter Helper ────────────────────────────────────────────────────────
+function Typewriter({ text, delay = 80 }: { text: string; delay?: number }) {
+  const [currentText, setCurrentText] = useState("");
+  useEffect(() => {
+    let index = 0;
+    const interval = setInterval(() => {
+      setCurrentText((prev) => prev + text.charAt(index));
+      index++;
+      if (index >= text.length) {
+        clearInterval(interval);
+      }
+    }, delay);
+    return () => clearInterval(interval);
+  }, [text, delay]);
+  return <>{currentText}</>;
+}
+
 // ─── Nav ──────────────────────────────────────────────────────────────────────
 function Nav() {
   const [open, setOpen] = useState(false);
@@ -66,7 +83,7 @@ function Nav() {
             <a
               key={l}
               href="#"
-              className="text-foreground/60 hover:text-foreground transition-colors duration-200"
+              className="text-foreground/60 hover:text-foreground transition-colors duration-200 hover-underline-anim"
               style={{ ...fi, fontSize: "11px", lineHeight: "1.2" }}
             >
               {l}
@@ -98,7 +115,9 @@ function Hero({ onPlayVideo }: { onPlayVideo: () => void }) {
     <section
       className="relative min-h-screen overflow-hidden flex flex-col"
       style={{
-        background: "linear-gradient(160deg, #C8E8F6 0%, #A8D4EE 35%, #BDE0F4 65%, #D6EDF8 100%)",
+        background: "linear-gradient(160deg, rgba(200, 232, 246, 0.5) 0%, rgba(168, 212, 238, 0.6) 35%, rgba(189, 224, 244, 0.6) 65%, rgba(214, 237, 248, 0.5) 100%), url('https://res.cloudinary.com/dvm7fjhxs/image/upload/v1783571259/ChatGPT_Image_Jul_8_2026_11_27_26_PM_kiso5y.png')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
       }}
     >
       {/* Nav placeholder height */}
@@ -108,7 +127,7 @@ function Hero({ onPlayVideo }: { onPlayVideo: () => void }) {
       <div className="relative flex-1 max-w-6xl mx-auto w-full px-8 flex flex-col">
 
         {/* Top-left floating card */}
-        <div className="mt-10 self-start">
+        <div className="mt-10 self-start animate-fade-in-up anim-delay-150">
           <button
             onClick={onPlayVideo}
             className="bg-white/70 backdrop-blur-sm rounded-3xl p-4 w-52 shadow-sm border border-[rgba(255,255,255,0.8)] text-left hover:scale-[1.03] active:scale-95 transition-all duration-300 hover:shadow-md hover:bg-white/90 group cursor-pointer"
@@ -135,7 +154,7 @@ function Hero({ onPlayVideo }: { onPlayVideo: () => void }) {
         </div>
 
         {/* Giant wordmark — positioned right */}
-        <div className="absolute right-0 top-12 bottom-0 flex items-center pointer-events-none select-none pr-4">
+        <div className="absolute right-0 top-12 bottom-0 flex items-center pointer-events-none select-none pr-4 animate-scale-in">
           <span
             className="text-[clamp(5rem,14vw,13rem)] leading-none text-blue-400/30"
             style={{ ...ff.outfit, fontWeight: 200, letterSpacing: "-0.02em", whiteSpace: "nowrap" }}
@@ -145,7 +164,7 @@ function Hero({ onPlayVideo }: { onPlayVideo: () => void }) {
         </div>
 
         {/* Center body copy */}
-        <div className="mt-auto mb-32 max-w-sm">
+        <div className="mt-auto mb-32 max-w-sm animate-fade-in-up anim-delay-300">
           <p className="text-base text-foreground/55 leading-relaxed" style={fi}>
             Through proprietary Saber technology, Elevation Spine enables surgeons to perform spinal fusion more efficiently — commercially distributed across strategic US healthcare networks.
           </p>
@@ -205,7 +224,7 @@ function About() {
       <div className="max-w-6xl mx-auto">
         <SectionLabel num="/001" title="About Us" />
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 reveal">
           {/* Left: heading */}
           <div>
             <h2
@@ -246,14 +265,14 @@ function Products() {
         <SectionLabel num="/002" title="The Products" />
 
         <h2
-          className="text-3xl md:text-5xl font-semibold text-foreground leading-[1.15] mb-3 max-w-4xl"
+          className="text-3xl md:text-5xl font-semibold text-foreground leading-[1.15] mb-3 max-w-4xl reveal"
           style={{ ...ff.outfit, fontWeight: 600 }}
         >
           Engineered to simplify fusion and{" "}
           <span className="text-muted-foreground font-light">eliminate surgical complexity</span>
         </h2>
 
-        <div className="mt-16 grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
+        <div className="mt-16 grid grid-cols-1 lg:grid-cols-3 gap-6 items-start reveal">
 
           {/* Left: SABER-C text */}
           <div className="flex flex-col gap-5">
@@ -307,7 +326,7 @@ function Products() {
             <img
               src="https://res.cloudinary.com/dvm7fjhxs/image/upload/v1783568424/Saber-C_TECH-17-Spike_Deployment_Flush_ytsoeh.png"
               alt="Saber-C Spike Deployment Flush"
-              className="w-full h-full object-contain p-6"
+              className="w-full h-full object-cover"
             />
           </div>
 
@@ -457,16 +476,16 @@ function Platform() {
         <SectionLabel num="/004" title="For Distributors" />
 
         <h2
-          className="text-3xl md:text-5xl font-semibold text-foreground leading-[1.15] mb-16 max-w-3xl"
+          className="text-3xl md:text-5xl font-semibold text-foreground leading-[1.15] mb-16 max-w-3xl reveal"
           style={{ ...ff.outfit, fontWeight: 600 }}
         >
           Expand your territory with a platform built for surgical excellence
         </h2>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 reveal">
 
           {/* Left card: territory */}
-          <div className="bg-card rounded-3xl border border-border p-8 flex flex-col gap-6">
+          <div className="bg-card rounded-3xl border border-border p-8 flex flex-col gap-6 hover:scale-[1.02] hover:shadow-md transition-all duration-300">
             <div>
               <h3 className="text-xl font-semibold text-foreground mb-2" style={{ ...ff.outfit, fontWeight: 600 }}>
                 Strategic Territory Rights
@@ -504,7 +523,7 @@ function Platform() {
           </div>
 
           {/* Middle: resource portal */}
-          <div className="bg-card rounded-3xl border border-border p-8 flex flex-col gap-4">
+          <div className="bg-card rounded-3xl border border-border p-8 flex flex-col gap-4 hover:scale-[1.02] hover:shadow-md transition-all duration-300">
             <h3 className="text-xl font-semibold text-foreground" style={{ ...ff.outfit, fontWeight: 600 }}>
               Technical Resource Portal
             </h3>
@@ -561,7 +580,7 @@ function Platform() {
           </div>
 
           {/* Right: real-time performance card */}
-          <div className="flex flex-col gap-6">
+          <div className="flex flex-col gap-6 hover:scale-[1.02] hover:shadow-md transition-all duration-300">
             <div className="bg-foreground rounded-3xl p-8 text-background flex flex-col gap-4 flex-1">
               <span className="text-xs text-background/40" style={fi}>Clinical performance</span>
               <h3 className="text-xl font-semibold text-background" style={{ ...ff.outfit, fontWeight: 600 }}>
@@ -733,6 +752,22 @@ function Footer() {
 // ─── Root ─────────────────────────────────────────────────────────────────────
 export default function App() {
   const [videoOpen, setVideoOpen] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("active");
+          }
+        });
+      },
+      { threshold: 0.05 }
+    );
+    const elements = document.querySelectorAll(".reveal");
+    elements.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <div className="bg-background text-foreground" style={fi}>
