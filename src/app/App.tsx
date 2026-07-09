@@ -305,8 +305,8 @@ function Products() {
           {/* Center: photo */}
           <div className="rounded-3xl overflow-hidden bg-blue-50 h-96 lg:h-[480px] flex items-center justify-center">
             <img
-              src="https://res.cloudinary.com/dvm7fjhxs/image/upload/v1783568438/Saber-C_3D-BEAUTY-09a-Implant_Construct_Spikes_Lateral_qs5x8z.png"
-              alt="Saber-C Implant Construct Spikes Lateral"
+              src="https://res.cloudinary.com/dvm7fjhxs/image/upload/v1783568424/Saber-C_TECH-17-Spike_Deployment_Flush_ytsoeh.png"
+              alt="Saber-C Spike Deployment Flush"
               className="w-full h-full object-contain p-6"
             />
           </div>
