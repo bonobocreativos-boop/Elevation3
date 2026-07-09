@@ -61,13 +61,13 @@ function Nav() {
         )}
 
         {/* Right nav */}
-        <nav className="hidden md:flex items-center gap-8">
+        <nav className="hidden md:flex flex-col items-start gap-0.5 justify-center">
           {links.map((l) => (
             <a
               key={l}
               href="#"
-              className="text-sm text-foreground/60 hover:text-foreground transition-colors duration-200"
-              style={{ ...fi, fontSize: "13px" }}
+              className="text-foreground/60 hover:text-foreground transition-colors duration-200"
+              style={{ ...fi, fontSize: "11px", lineHeight: "1.2" }}
             >
               {l}
             </a>
