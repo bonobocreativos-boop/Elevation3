@@ -140,7 +140,7 @@ function Hero({ onPlayVideo }: { onPlayVideo: () => void }) {
             className="text-[clamp(5rem,14vw,13rem)] leading-none text-blue-400/30"
             style={{ ...ff.outfit, fontWeight: 200, letterSpacing: "-0.02em", whiteSpace: "nowrap" }}
           >
-            elevation
+            spinal fusion
           </span>
         </div>
 
